@@ -1,6 +1,18 @@
 # shell-scripts
 Personal shell scripts, here to share with colleagues and others.
 
-This repo is not particularly designed for typical `git` interaction. I haven't even tested what happens if its `.git` directory would cause problems for, as I have things set up, ZSH or Bash to source all files within a directory. (The simple fix that I haven't yet done is to make the sourcing only source `*.sh`; go for it if you want to).
+## Suggested setup
+1. Clone as a sibling to your shell profile (`.bash-profile`, `.zshrc`, etc.).
+2. Modify your shell profile to import/source all SH files within the shell-scripts directory. My instruction to do so looks like this:
+```bash
+# Import custom shell functions
+customShellFunctionsDir="./shell-scripts"
+if [ -d $customShellFunctionsDir ]; then
+    for f in $customShellFunctionsDir/*.sh; do
+        source $f
+    done
+else
+    print "$customShellFunctionsDir not found."
+fi
+```
 
-PRs welcome.
