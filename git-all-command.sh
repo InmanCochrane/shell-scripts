@@ -4,8 +4,7 @@
 git-all-command() {
 
 # Check for help or absent flags
-if [[ "$#" -eq 0 ]] || [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]
-then
+if [[ "$#" -eq 0 ]] || [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
         # Show help info and return
         echo "Runs a given command on all git repos one level below the current or specified directory."
         echo " "
@@ -42,33 +41,27 @@ else
         done
 
         # Execute based on args
-        if [[ ${gitcommand} = '' ]]
-        then
+        if [[ ${gitcommand} = '' ]]; then
                 # Return with instruction
                 echo "No command given. Use -c <git command string>."
                 return
         else
-                if ! [[ $fflag = 'true' ]]
-                then
+                if ! [[ $fflag = 'true' ]]; then
                         # Show continuation prompt
                         belowDirectoryString="the current directory"
-                        if [[ ${ppath} != '.' ]]
-                        then
+                        if [[ ${ppath} != '.' ]]; then
                                 belowDirectoryString=${ppath}
                         fi
                         echo -e "This will run the following command on all git repos one level below" ${belowDirectoryString} ":"
                         echo -e "\t"${gitcommand}
-                        if [[ $lflag = 'true' ]]
-                        then
+                        if [[ $lflag = 'true' ]]; then
                                 # List directories that will be targeted
                                 echo " "
                                 echo "Those directories are:"
                                 gitDirs=($(find ${ppath} -maxdepth 1 -mindepth 1 -type d))
-                                for gd in $gitDirs
-                                do
+                                for gd in $gitDirs; do
                                         (
-                                        if [[ -e $gd/.git ]]
-                                        then
+                                        if [[ -e $gd/.git ]]; then
                                                 echo -e "\t $gd"
                                         fi
                                         )
@@ -85,11 +78,9 @@ else
                 fi
 
                 directories=($(find ${ppath} -maxdepth 1 -mindepth 1 -type d))
-                for d in $directories
-                do
+                for d in $directories; do
                         (
-                        if [[ -e $d/.git ]]
-                        then
+                        if [[ -e $d/.git ]]; then
                                 echo -e $d
                                 cd $d
                                 sh -c ${gitcommand}
